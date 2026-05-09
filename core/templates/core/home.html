@@ -1,0 +1,158 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<section id="hero" class="hero-section">
+    <div class="hero-content">
+        <h1>Hi, I'm <span class="gradient-text">{{ about.name|default:"Developer" }}</span></h1>
+        <h2>{{ about.headline|default:"Creative Thinker & Coder" }}</h2>
+        <p class="bio-short">{{ about.bio|truncatewords:20|default:"Building amazing experiences for the web." }}</p>
+        <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">See My Work</a>
+            {% if about.resume %}
+                <a href="{{ about.resume.url }}" class="btn btn-outline" target="_blank">Download CV</a>
+            {% endif %}
+        </div>
+    </div>
+    {% if about.profile_image %}
+    <div class="hero-image">
+        <div class="glass-container">
+            <img src="{{ about.profile_image.url }}" alt="{{ about.name }}">
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+<section id="about" class="about-section glass-card">
+    <h2 class="section-title">About <span class="accent">Me</span></h2>
+    <div class="about-content">
+        <p>{{ about.bio|default:"I love building modern, responsive, and dynamic web applications."|linebreaks }}</p>
+    </div>
+</section>
+
+<section id="skills" class="skills-section">
+    <h2 class="section-title">My <span class="accent">Skills</span></h2>
+    <div class="skills-container">
+        {% if frontend_skills %}
+        <div class="skill-category glass-card">
+            <h3>Frontend</h3>
+            <div class="skill-tags">
+                {% for skill in frontend_skills %}
+                    <span class="tag">{{ skill.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if backend_skills %}
+        <div class="skill-category glass-card">
+            <h3>Backend</h3>
+            <div class="skill-tags">
+                {% for skill in backend_skills %}
+                    <span class="tag">{{ skill.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if other_skills %}
+        <div class="skill-category glass-card">
+            <h3>Tools & Other</h3>
+            <div class="skill-tags">
+                {% for skill in other_skills %}
+                    <span class="tag">{{ skill.name }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section id="projects" class="projects-section">
+    <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
+    <div class="grid projects-grid">
+        {% for project in projects %}
+        <div class="card glass-card project-card">
+            {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img">
+            {% else %}
+                <div class="card-img-placeholder">Project Image</div>
+            {% endif %}
+            <div class="card-body">
+                <h3>{{ project.title }}</h3>
+                <p class="tech-stack">{{ project.technologies }}</p>
+                <p>{{ project.description|truncatewords:20 }}</p>
+                <div class="card-actions">
+                    {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn btn-small">Live Demo</a>
+                    {% endif %}
+                    {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline btn-small"><i class="fab fa-github"></i> Code</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No projects available yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="certificates" class="certificates-section">
+    <h2 class="section-title">My <span class="accent">Certificates</span></h2>
+    <div class="grid cert-grid">
+        {% for cert in certificates %}
+        <div class="card glass-card cert-card">
+            <div class="card-body">
+                <h3>{{ cert.title }}</h3>
+                <p class="issuer">Issued by <strong>{{ cert.issuer }}</strong></p>
+                {% if cert.date_issued %}<p class="date">{{ cert.date_issued|date:"M Y" }}</p>{% endif %}
+                <div class="card-actions">
+                    {% if cert.certificate_url %}
+                        <a href="{{ cert.certificate_url }}" target="_blank" class="btn btn-outline btn-small">Verify</a>
+                    {% endif %}
+                    {% if cert.image %}
+                        <a href="{{ cert.image.url }}" target="_blank" class="btn btn-small">View Certificate</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No certificates added yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="contact" class="contact-section">
+    <h2 class="section-title">Get in <span class="accent">Touch</span></h2>
+    <div class="contact-container glass-card">
+        <div class="contact-info">
+            <h3>Let's talk about your project!</h3>
+            <p>I'm currently available for freelance projects or full-time opportunities. Drop a message to say hi!</p>
+            {% if about.contact_email %}
+            <div class="info-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:{{ about.contact_email }}">{{ about.contact_email }}</a>
+            </div>
+            {% endif %}
+        </div>
+        
+        <form action="{% url 'home' %}#contact" method="POST" class="contact-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="subject" name="subject" placeholder="Subject">
+            </div>
+            <div class="form-group">
+                <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary submit-btn">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
+</section>
+{% endblock %}

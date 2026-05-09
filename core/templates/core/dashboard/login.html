@@ -1,0 +1,44 @@
+{% extends 'core/dashboard/dashboard_base.html' %}
+
+{% block dashboard_content %}
+<div class="glass-card login-card" style="width: 100%; max-width: 400px; margin: 5rem auto; text-align: center; padding: 2rem;">
+    <h2>Admin <span class="accent">Login</span></h2>
+    <p class="text-muted" style="margin-bottom: 2rem;">Access your portfolio control panel.</p>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group" style="text-align: left;">
+            <label class="glass-label">Username</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group" style="text-align: left;">
+            <label class="glass-label">Password</label>
+            {{ form.password }}
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Log In</button>
+    </form>
+    
+    <div style="margin-top: 2rem;">
+        <a href="{% url 'home' %}" class="btn btn-outline btn-small"><i class="fas fa-arrow-left"></i> Back to Site</a>
+    </div>
+</div>
+
+<style>
+/* Center login nicely */
+.dashboard-container { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 1rem;
+    min-height: 100vh;
+}
+.main-content { 
+    margin-left: 0; 
+    width: 100%; 
+    display: flex; 
+    justify-content: center;
+    padding: 0;
+}
+.mobile-header { display: none !important; }
+</style>
+{% endblock %}

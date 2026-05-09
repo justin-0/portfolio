@@ -1,0 +1,40 @@
+{% extends 'core/dashboard/dashboard_base.html' %}
+
+{% block dashboard_content %}
+<div class="admin-header">
+    <h1>Dashboard <span class="accent">Overview</span></h1>
+</div>
+
+<div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+    <div class="glass-card" style="padding: 2rem; text-align: center;">
+        <i class="fas fa-envelope accent" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h2>{{ message_count }}</h2>
+        <p>Unread Messages</p>
+        <a href="{% url 'admin_messages' %}" class="btn btn-outline btn-small" style="margin-top: 1rem;">View Inbox</a>
+    </div>
+
+    <div class="glass-card" style="padding: 2rem; text-align: center;">
+        <i class="fas fa-briefcase text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h2>{{ project_count }}</h2>
+        <p>Active Projects</p>
+        <a href="{% url 'admin_projects' %}" class="btn btn-outline btn-small" style="margin-top: 1rem;">Manage</a>
+    </div>
+
+    <div class="glass-card" style="padding: 2rem; text-align: center;">
+        <i class="fas fa-certificate text-muted" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+        <h2>{{ cert_count }}</h2>
+        <p>Certificates</p>
+        <a href="{% url 'admin_certificates' %}" class="btn btn-outline btn-small" style="margin-top: 1rem;">Manage</a>
+    </div>
+</div>
+
+<div class="glass-card" style="margin-top: 3rem; padding: 2rem;">
+    <h2>Quick <span class="accent">Actions</span></h2>
+    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 1rem 0;">
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="{% url 'admin_about' %}" class="btn btn-primary"><i class="fas fa-user-edit"></i> Edit Bio</a>
+        <a href="{% url 'admin_project_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Project</a>
+        <a href="{% url 'admin_skill_add' %}" class="btn btn-primary"><i class="fas fa-plus"></i> Add Skill</a>
+    </div>
+</div>
+{% endblock %}
