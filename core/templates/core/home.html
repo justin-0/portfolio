@@ -89,27 +89,47 @@
         <h2 class="section-title">Featured <span class="accent">Projects</span></h2>
         <div class="grid projects-grid">
             {% for project in projects %}
-                <div class="card glass-card project-card">
-                    {% if project.image %}
-                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img">
-                    {% else %}
-                        <div class="card-img-placeholder">Project Image</div>
-                    {% endif %}
-                    <div class="card-body">
-                        <h3>{{ project.title }}</h3>
-                        <p class="tech-stack">{{ project.technologies }}</p>
-                        <p>{{ project.description|truncatewords:20 }}</p>
-                        <div class="card-actions">
-                            {% if project.live_url %}
-                                <a href="{{ project.live_url }}" target="_blank" class="btn btn-small">Live Demo</a>
-                            {% endif %}
-                            {% if project.github_url %}
-                                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline btn-small"><i
-                                        class="fab fa-github"></i> Code</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+               <div class="card glass-card project-card" onclick="openModal('modal-{{ forloop.counter }}')" style="cursor:pointer;">
+    {% if project.image %}
+        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img">
+    {% else %}
+        <div class="card-img-placeholder">Project Image</div>
+    {% endif %}
+    <div class="card-body">
+        <h3>{{ project.title }}</h3>
+        <p class="tech-stack">{{ project.technologies }}</p>
+        <p>{{ project.description|truncatewords:20 }}</p>
+        <div class="card-actions">
+            {% if project.live_url %}
+                <a href="{{ project.live_url }}" target="_blank" class="btn btn-small" onclick="event.stopPropagation()">Live Demo</a>
+            {% endif %}
+            {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline btn-small" onclick="event.stopPropagation()"><i class="fab fa-github"></i> Code</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="modal-{{ forloop.counter }}" class="project-modal" onclick="closeModal('modal-{{ forloop.counter }}')">
+    <div class="modal-content glass-card" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModal('modal-{{ forloop.counter }}')"><i class="fas fa-times"></i></button>
+        {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" style="width:100%; border-radius:8px; margin-bottom:1rem;">
+        {% endif %}
+        <h2>{{ project.title }}</h2>
+        <p class="tech-stack">{{ project.technologies }}</p>
+        <p style="line-height:1.8; color: var(--text-muted);">{{ project.description }}</p>
+        <div class="card-actions" style="margin-top:1.5rem;">
+            {% if project.live_url %}
+                <a href="{{ project.live_url }}" target="_blank" class="btn btn-small">Live Demo</a>
+            {% endif %}
+            {% if project.github_url %}
+                <a href="{{ project.github_url }}" target="_blank" class="btn btn-outline btn-small"><i class="fab fa-github"></i> Code</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
             {% empty %}
                 <p>No projects available yet.</p>
             {% endfor %}
