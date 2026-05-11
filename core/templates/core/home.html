@@ -27,6 +27,23 @@
     <h2 class="section-title">About <span class="accent">Me</span></h2>
     <div class="about-content">
         <p>{{ about.bio|default:"I love building modern, responsive, and dynamic web applications."|linebreaks }}</p>
+        <div class="about-social" style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
+            {% if about.github_url %}
+            <a href="{{ about.github_url }}" target="_blank" class="btn btn-outline btn-small">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            {% endif %}
+            {% if about.linkedin_url %}
+            <a href="{{ about.linkedin_url }}" target="_blank" class="btn btn-outline btn-small">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            {% endif %}
+            {% if about.contact_email %}
+            <a href="mailto:{{ about.contact_email }}" class="btn btn-outline btn-small">
+                <i class="fas fa-envelope"></i> Email Me
+            </a>
+            {% endif %}
+        </div>
     </div>
 </section>
 
