@@ -10,8 +10,10 @@
         <div class="hero-actions">
             <a href="#projects" class="btn btn-primary">See My Work</a>
          {% if about.resume %}
-    <a href="{{ about.resume.url }}" class="btn btn-outline" target="_blank">View CV</a>
-    <a href="{{ about.resume.url }}?fl_attachment=true" class="btn btn-primary" download>Download CV</a>
+    {% with resume_url=about.resume.url|cut:"/image/upload/"|urlencode %}
+    <a href="https://res.cloudinary.com/dwql1fht0/raw/upload/{{ about.resume }}" class="btn btn-outline" target="_blank">View CV</a>
+    <a href="https://res.cloudinary.com/dwql1fht0/raw/upload/fl_attachment/{{ about.resume }}" class="btn btn-primary">Download CV</a>
+    {% endwith %}
 {% endif %}
         </div>
     </div>
