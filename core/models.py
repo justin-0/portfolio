@@ -6,7 +6,7 @@ class AboutMe(models.Model):
     headline = models.CharField(max_length=200, help_text="Short description like 'Full Stack Developer'")
     bio = models.TextField()
     profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
-    resume = models.URLField(blank=True, null=True,help_text="Direct link to your resume (Google Drive, Dropbox, etc.)")
+    resume = models.URLField(blank=True, null=True, help_text="Direct link to your resume (Google Drive, Dropbox, etc.)")
     contact_email = models.EmailField()
     github_url = models.URLField(blank=True, null=True)
     linkedin_url = models.URLField(blank=True, null=True)
