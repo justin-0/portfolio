@@ -1,11 +1,12 @@
 from django.db import models
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 
 class AboutMe(models.Model):
     name = models.CharField(max_length=100)
     headline = models.CharField(max_length=200, help_text="Short description like 'Full Stack Developer'")
     bio = models.TextField()
     profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
-    resume = models.FileField(upload_to='resume/', blank=True, null=True)
+    resume = models.FileField(upload_to='resume/', blank=True, null=True, storage=RawMediaCloudinaryStorage())
     contact_email = models.EmailField()
     github_url = models.URLField(blank=True, null=True)
     linkedin_url = models.URLField(blank=True, null=True)
