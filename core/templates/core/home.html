@@ -9,9 +9,10 @@
         <p class="bio-short">{{ about.bio|truncatewords:20|default:"Building amazing experiences for the web." }}</p>
         <div class="hero-actions">
             <a href="#projects" class="btn btn-primary">See My Work</a>
-            {% if about.resume %}
-                <a href="{{ about.resume.url }}" class="btn btn-outline" target="_blank">Download CV</a>
-            {% endif %}
+         {% if about.resume %}
+    <a href="{{ about.resume.url }}" class="btn btn-outline" target="_blank">View CV</a>
+    <a href="{{ about.resume.url }}?fl_attachment=true" class="btn btn-primary" download>Download CV</a>
+{% endif %}
         </div>
     </div>
     {% if about.profile_image %}
@@ -153,7 +154,7 @@
             </div>
             {% endif %}
         </div>
-        
+
         <form action="{% url 'home' %}#contact" method="POST" class="contact-form">
             {% csrf_token %}
             <div class="form-group">
